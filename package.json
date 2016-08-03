@@ -1,0 +1,28 @@
+{
+  "name": "comic-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./server/index.js",
+  "bin": {
+      "comic-server": "./bin/server"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuww5511/comic-server.git"
+  },
+  "author": "wuww",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wuww5511/comic-server/issues"
+  },
+  "homepage": "https://github.com/wuww5511/comic-server#readme",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "socket.io": "^1.4.8"
+  }
+}
