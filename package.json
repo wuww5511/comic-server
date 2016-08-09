@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/index.js",
   "bin": {
-      "comic-server": "./bin/server"
+    "comic-server": "./bin/server"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/wuww5511/comic-server#readme",
   "dependencies": {
     "cheerio": "^0.20.0",
+    "ejs": "^2.5.1",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "socket.io": "^1.4.8"

@@ -7,14 +7,15 @@ var _express = require('express'),
 var _commonDataUrl = _path.join(process.cwd(), "./data/data.json");
 
 _router.use(/\S+\.ftl/, function (_req, _res, _next) {
-    var _dataUrl = _path.join(process.cwd(), "./data" + _req.originalUrl.slice(0, -3) + "json");
+    var _dataOUrl = '/' + _req.originalUrl.split('/').slice(3).join('/');
+    var _dataUrl = _path.join(process.cwd(), "./data" + _dataOUrl.slice(0, -3) + "json");
     var _commonData = _getJson(_commonDataUrl);
     
     var _data = _getJson(_dataUrl);
     
     Object.assign(_commonData, _data);
     
-    _ftl(_path.join(process.cwd(), "WEB-INF/template/"))._$render("WEB-INF/template/" + _req.originalUrl.slice(1),
+    _ftl(_path.join(process.cwd(), "WEB-INF/template/"))._$render( _req.originalUrl.slice(1),
                                  _commonData,
                                  function (_err, _html) {
         if(_err) {

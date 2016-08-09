@@ -18,7 +18,7 @@ function _getJson (_url) {
         return require(_url);
     }
     catch(_e) {
-        console.warn("warn:" + _e.message);
+        //console.warn("warn:" + _e.message);
         return {};
     }
 }

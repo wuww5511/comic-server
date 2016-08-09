@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Path</title>
+</head>
+<body>
+    <ul>
+       <% if(_hasParentDir) {%><li><a href="../">..</a></li><% } %>
+        <% for(var _i = 0; _i < _files.length; _i++) { %>
+            <li><a href="<%= _base %>/<%= _files[_i].name%>"><%= _files[_i].name %></a></li>
+        <% } %>
+    </ul>
+</body>
+</html>
