@@ -2,12 +2,22 @@ var _express = require('express'),
     _router = _express.Router(),
     _ftl = require('../freemarker/index'),
     _path = require('path'),
-     _cheerio = require('cheerio');
+     _cheerio = require('cheerio'),
+    _querystring = require('querystring');
 
 var _commonDataUrl = _path.join(process.cwd(), "./data/data.json");
 
 _router.use(/\S+\.ftl/, function (_req, _res, _next) {
-    var _dataOUrl = '/' + _req.originalUrl.split('/').slice(3).join('/');
+    
+    var _originalUrl = _req.originalUrl;
+    var _query = "";
+    
+    if(_originalUrl.indexOf('?') >= 0) {
+        _originalUrl = _req.originalUrl.split('?')[0];
+        _query = _req.originalUrl.split('?')[1];
+    }
+    
+    var _dataOUrl = '/' + _originalUrl.split('/').slice(3).join('/');
     var _dataUrl = _path.join(process.cwd(), "./data" + _dataOUrl.slice(0, -3) + "json");
     var _commonData = _getJson(_commonDataUrl);
     
@@ -15,7 +25,11 @@ _router.use(/\S+\.ftl/, function (_req, _res, _next) {
     
     Object.assign(_commonData, _data);
     
-    _ftl(_path.join(process.cwd(), "WEB-INF/template/"))._$render( _req.originalUrl.slice(1),
+    _commonData.params || (_commonData.params = {});
+    
+    Object.assign(_commonData.params, _querystring.parse(_query));
+    
+    _ftl(_path.join(process.cwd(), "WEB-INF/template/"))._$render( _originalUrl.slice(1),
                                  _commonData,
                                  function (_err, _html) {
         if(_err) {
@@ -26,7 +40,7 @@ _router.use(/\S+\.ftl/, function (_req, _res, _next) {
             if(_$('body').length > 0) {
                 _$('body').append('<script src="/server/public/socket.io.js"></script><script src="/server/public/main.js"></script>')
             }
-            
+            _res.setHeader("Content-Type", "text/html;charset=utf-8")
             _res.end(new Buffer(_$.html()));
         }
     });
