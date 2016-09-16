@@ -14,7 +14,9 @@ var _port = 3000;
 _app.set('view engine', 'ejs');
 _app.set('views', _path.join(__dirname, './views'));
 
-
+if(process.argv[2] && +process.argv[2] != NaN) {
+    _port = +process.argv[2];
+}
 
 _io(_server);
 
